@@ -1,0 +1,31 @@
+plugins {
+    id 'java-library'
+    id 'org.jetbrains.kotlin.jvm'
+}
+
+apply plugin: 'kotlin-kapt'
+kapt {
+    generateStubs = true
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    //导入google autoService
+    kapt 'com.google.auto.service:auto-service:1.0-rc4'
+    annotationProcessor 'com.google.auto.service:auto-service:1.0-rc4'
+    compileOnly 'com.google.auto.service:auto-service:1.0-rc4'
+
+//    // 帮助我们通过类调用的形式来生成Java代码
+//    implementation "com.squareup:javapoet:1.10.0"
+    // 帮助我们通过类调用的形式来生成kotlin代码
+    implementation 'com.squareup:kotlinpoet:1.10.2'
+
+    // 引入annotation，处理@ARouter注解
+    implementation project(':common:arouter_annotation')
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
